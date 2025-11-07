@@ -62,10 +62,14 @@ from funcionario func
 inner join dependente depen
 on func.id = depen.id_funcionario
 group by func.nome
-having count(depen.id) > 2;
+having count(depen.id) > 1;
 
 	# Atividade 2
-
+select dep.nome as nomeDepartamento, func.nome as nomeFuncionario
+from departamento dep
+inner join funcionario func
+on dep.id = func.id
+order by func.nome;
     
     # Atividade 3
 select func.nome as nomeFuncionario, depen.nome as nomeDependente
@@ -74,16 +78,25 @@ left join dependente depen
 on func.id = depen.id;
 
 	# Atividade 4
-select avg(salario) from funcionario;
+select dep.nome as nomeDepartamento, avg(func.salario) as mediaSalario
+from departamento dep
+inner join funcionario func
+on dep.id = func.id_departamento
+group by dep.nome;
 
 	# Atividade 5
-
+select dep.nome as nomeDepartamento, func.nome as nomeFuncionario
+from departamento dep
+left join funcionario func
+on dep.id = func.id;
 
 	# Atividade 6
-select sum(salario) from funcionario;
+select sum(salario) as salarioGeral 
+from funcionario;
 	
     # Atividade 7
-select count(func.salario) as salarioFuncionario, dep.nome as nomeDepartamento
-from funcionario func
-left join departamento dep
-on func.id = dep.id;
+select dep.nome, sum(func.salario) as salarioFuncionario
+from departamento dep
+inner join funcionario func
+on dep.id = func.id_departamento
+group by dep.nome;
